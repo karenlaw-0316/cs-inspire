@@ -19,4 +19,10 @@
         box-shadow: none;
         
     }
+
+    &__accordionSummary {
+        box-shadow:none;
+        display:flex;
+        align-items: center;
+    }
 }

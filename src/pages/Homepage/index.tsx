@@ -21,6 +21,9 @@ import {
 	InputLabel,
 	InputAdornment,
 	FormControl,
+	Accordion,
+	AccordionSummary,
+	AccordionDetails,
 } from "@mui/material";
 import InboxIcon from "@mui/icons-material/Inbox";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
@@ -30,24 +33,43 @@ import GroupsOutlinedIcon from "@mui/icons-material/GroupsOutlined";
 import LocalActivityOutlinedIcon from "@mui/icons-material/LocalActivityOutlined";
 import PersonAddAltOutlinedIcon from "@mui/icons-material/PersonAddAltOutlined";
 import AddIcon from "@mui/icons-material/Add";
-import React from "react";
+import React, { useState } from "react";
 import Logo from "../../Assets/logo.png";
 import UserAvatar from "../../Assets/avatar.png";
+import UserAvatar2 from "../../Assets/UserAvatar2.png";
+import UserAvatar3 from "../../Assets/UserAvatar3.png";
+import UserAvatar4 from "../../Assets/UserAvatar4.png";
 import RoleModelAvatar from "../../Assets/roleModel.png";
 import SportsEsportsOutlinedIcon from "@mui/icons-material/SportsEsportsOutlined";
 import CoPresentOutlinedIcon from "@mui/icons-material/CoPresentOutlined";
 import AutoGraphOutlinedIcon from "@mui/icons-material/AutoGraphOutlined";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+
 import "./style.scss";
 
 const Homepage = () => {
-	// const navItems = [
-	// 	"Homepage",
-	// 	"Article",
-	// 	"Discussion",
-	// 	"Group",
-	// 	"Event",
-	// 	"Following",
-	// ];
+	const defaultComments = [
+		{
+			avatar: UserAvatar3,
+			name: "Joyce N.",
+			content:
+				"Lorem ipsum dolor sit amet, consectetur adipiscing elit. A, nibh nunc vitae libero, enim felis nunc, odio et. Praesent imperdiet leo pretium bibendum diam id id volutpat feugiat.",
+		},
+		{
+			avatar: UserAvatar4,
+			name: "Anna A.",
+			content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+		},
+		{
+			avatar: UserAvatar3,
+			name: "Joyce N.",
+			content:
+				"Lorem ipsum dolor sit amet, consectetur adipiscing elit. A, nibh nunc vitae libero, enim felis nunc, odio et. Praesent imperdiet leo pretium bibendum diam id id volutpat feugiat.",
+		},
+	];
+	const [cm, setCM] = React.useState("");
+	const [comments, setComments] = React.useState(defaultComments);
+	console.log(comments);
 
 	const navItems = [
 		{ icon: <HomeOutlinedIcon />, text: "Homepage" },
@@ -84,6 +106,20 @@ const Homepage = () => {
 			location: "Raffles Place",
 		},
 	];
+
+	const onCommentPost = () => {
+		console.log("try");
+		console.log(cm);
+		let newComments = [...comments];
+		newComments.push({
+			avatar: UserAvatar,
+			name: "Karen Law",
+			content: cm,
+		});
+		setComments(newComments);
+		setCM("");
+		// console.log(comments);
+	};
 
 	return (
 		<Box className="App" sx={{ backgroundColor: "#F9FBFC" }}>
@@ -285,7 +321,248 @@ const Homepage = () => {
 					</Stack>
 				</Grid>
 				<Grid item xs={6}>
-					<div>xs=4</div>
+					<div>
+						<Accordion
+							sx={{
+								boxShadow: "0px 4px 20px 2px #ECECEC6B",
+								borderRadius: "10px !important",
+								padding: "10px",
+							}}
+						>
+							<AccordionSummary
+								expandIcon={<ExpandMoreIcon />}
+								aria-controls="panel1a-content"
+								id="panel1a-header"
+							>
+								<div className="Homepage__accordionSummary">
+									<Avatar
+										alt="user"
+										src={UserAvatar2}
+										sx={{ width: 40, height: 40 }}
+									/>
+									<Typography
+										sx={{
+											marginLeft: "20px",
+											fontWeight: 600,
+											color: "#0B5286",
+										}}
+									>
+										What do you think about the recent COVID-19 policy?
+									</Typography>
+								</div>
+							</AccordionSummary>
+							<AccordionDetails>
+								<Box
+									sx={{
+										backgroundColor: "#EFF6FC",
+										padding: 5,
+										maxHeight: "400px",
+										overflowY: "scroll",
+									}}
+								>
+									<Stack spacing={3}>
+										{comments.map((cm, i) => {
+											return (
+												<Box
+													sx={{
+														backgroundColor: "white",
+														padding: 3,
+														borderRadius: 2,
+													}}
+												>
+													<Stack direction="row" spacing={2}>
+														<Avatar
+															alt="user"
+															src={cm.avatar}
+															sx={{ width: 40, height: 40 }}
+														/>
+														<Stack spacing={1}>
+															<Typography
+																sx={{
+																	fontSize: "16px",
+																	color: "#0B5286",
+																	fontWeight: 700,
+																}}
+															>
+																{cm.name}
+															</Typography>
+
+															<Typography sx={{ fontSize: "14px" }}>
+																{cm.content}
+															</Typography>
+														</Stack>
+													</Stack>
+												</Box>
+											);
+										})}
+										{/* <Box
+											sx={{
+												backgroundColor: "white",
+												padding: 3,
+												borderRadius: 2,
+											}}
+										>
+											<Stack direction="row" spacing={2}>
+												<Avatar
+													alt="user"
+													src={UserAvatar3}
+													sx={{ width: 40, height: 40 }}
+												/>
+												<Stack spacing={1}>
+													<Typography
+														sx={{
+															fontSize: "16px",
+															color: "#0B5286",
+															fontWeight: 700,
+														}}
+													>
+														Joyce N.
+													</Typography>
+
+													<Typography sx={{ fontSize: "14px" }}>
+														Lorem ipsum dolor sit amet, consectetur adipiscing
+														elit. Suspendisse malesuada lacus ex, sit amet
+														blandit leo lobortis eget.
+													</Typography>
+												</Stack>
+											</Stack>
+										</Box>
+										<Box
+											sx={{
+												backgroundColor: "white",
+												padding: 3,
+												borderRadius: 2,
+											}}
+										>
+											<Stack direction="row" spacing={2}>
+												<Avatar
+													alt="user"
+													src={UserAvatar4}
+													sx={{ width: 40, height: 40 }}
+												/>
+												<Stack spacing={1}>
+													<Typography
+														sx={{
+															fontSize: "16px",
+															color: "#0B5286",
+															fontWeight: 700,
+														}}
+													>
+														Anna A.
+													</Typography>
+
+													<Typography sx={{ fontSize: "14px" }}>
+														Lorem ipsum dolor sit amet, consectetur adipiscing
+														elit.
+													</Typography>
+												</Stack>
+											</Stack>
+										</Box>
+										<Box
+											sx={{
+												backgroundColor: "white",
+												padding: 3,
+												borderRadius: 2,
+											}}
+										>
+											<Stack direction="row" spacing={2}>
+												<Avatar
+													alt="user"
+													src={UserAvatar3}
+													sx={{ width: 40, height: 40 }}
+												/>
+												<Stack spacing={1}>
+													<Typography
+														sx={{
+															fontSize: "16px",
+															color: "#0B5286",
+															fontWeight: 700,
+														}}
+													>
+														Joyce N.
+													</Typography>
+
+													<Typography sx={{ fontSize: "14px" }}>
+														Lorem ipsum dolor sit amet, consectetur adipiscing
+														elit. Suspendisse malesuada lacus ex, sit amet
+														blandit leo lobortis eget.
+													</Typography>
+												</Stack>
+											</Stack>
+										</Box>
+										<Box
+											sx={{
+												backgroundColor: "white",
+												padding: 3,
+												borderRadius: 2,
+											}}
+										>
+											<Stack direction="row" spacing={2}>
+												<Avatar
+													alt="user"
+													src={UserAvatar3}
+													sx={{ width: 40, height: 40 }}
+												/>
+												<Stack spacing={1}>
+													<Typography
+														sx={{
+															fontSize: "16px",
+															color: "#0B5286",
+															fontWeight: 700,
+														}}
+													>
+														Joyce N.
+													</Typography>
+
+													<Typography sx={{ fontSize: "14px" }}>
+														Lorem ipsum dolor sit amet, consectetur adipiscing
+														elit. Suspendisse malesuada lacus ex, sit amet
+														blandit leo lobortis eget.
+													</Typography>
+												</Stack>
+											</Stack>
+										</Box> */}
+									</Stack>
+								</Box>
+								<Box
+									sx={{
+										backgroundColor: "white",
+										// height: "100px",
+										padding: "20px",
+										boxShadow: "0px -30px 20px -20px #0000000D",
+									}}
+								>
+									<Stack spacing={2}>
+										<Stack
+											direction="row"
+											justifyContent={"space-between"}
+											alignItems="center"
+										>
+											<Typography sx={{ fontWeight: 600, color: "#0B5286" }}>
+												Leave a Comment
+											</Typography>
+											<Button
+												variant="text"
+												sx={{ color: "#0B5286" }}
+												onClick={() => onCommentPost()}
+											>
+												Post
+											</Button>
+										</Stack>
+										<TextField
+											id="outlined-multiline-static"
+											// label="Multiline"
+											multiline
+											rows={3}
+											value={cm}
+											onChange={(e) => setCM(e.target.value)}
+											// defaultValue="Default Value"
+										/>
+									</Stack>
+								</Box>
+							</AccordionDetails>
+						</Accordion>
+					</div>
 				</Grid>
 				<Grid item xs={3}>
 					<Stack alignItems="center">
