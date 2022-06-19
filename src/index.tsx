@@ -4,14 +4,23 @@ import "./index.css";
 // import App from "./App";
 import Homepage from "../src/pages/Homepage";
 import Register from "../src/pages/Register";
+import SignIn from "../src/pages/SignIn";
 import reportWebVitals from "./reportWebVitals";
+import { BrowserRouter } from "react-router-dom";
+import { Routes, Route, Link } from "react-router-dom";
 
 const root = ReactDOM.createRoot(
 	document.getElementById("root") as HTMLElement
 );
 root.render(
 	<React.StrictMode>
-		<Homepage />
+		<BrowserRouter>
+			<Routes>
+				<Route path="/" element={<Register />} />
+				<Route path="home" element={<Homepage />} />
+				<Route path="login" element={<SignIn />} />
+			</Routes>
+		</BrowserRouter>
 	</React.StrictMode>
 );
 

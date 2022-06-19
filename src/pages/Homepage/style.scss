@@ -1,0 +1,22 @@
+.Homepage {
+    &__userName{
+        font-weight: 700 !important;
+        font-size: 16px !important;
+        color: #0B5286;
+    }
+
+    &__eventRSVPButton{
+        padding: 0 !important;
+		background-color: #FF8515 !important;
+		align-self: flex-end;
+        box-shadow: none !important;
+    }
+
+    &__eventRSVPButton:hover{
+        padding: 0;
+		background-color: #ffaa5a !important;
+		align-self: flex-end;
+        box-shadow: none;
+        
+    }
+}

@@ -23,21 +23,66 @@ import {
 	FormControl,
 } from "@mui/material";
 import InboxIcon from "@mui/icons-material/Inbox";
+import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
+import ArticleOutlinedIcon from "@mui/icons-material/ArticleOutlined";
+import ForumOutlinedIcon from "@mui/icons-material/ForumOutlined";
+import GroupsOutlinedIcon from "@mui/icons-material/GroupsOutlined";
+import LocalActivityOutlinedIcon from "@mui/icons-material/LocalActivityOutlined";
+import PersonAddAltOutlinedIcon from "@mui/icons-material/PersonAddAltOutlined";
 import AddIcon from "@mui/icons-material/Add";
-import SearchIcon from "@mui/icons-material/Search";
 import React from "react";
 import Logo from "../../Assets/logo.png";
-
-// import './App.css';
+import UserAvatar from "../../Assets/avatar.png";
+import RoleModelAvatar from "../../Assets/roleModel.png";
+import SportsEsportsOutlinedIcon from "@mui/icons-material/SportsEsportsOutlined";
+import CoPresentOutlinedIcon from "@mui/icons-material/CoPresentOutlined";
+import AutoGraphOutlinedIcon from "@mui/icons-material/AutoGraphOutlined";
+import "./style.scss";
 
 const Homepage = () => {
+	// const navItems = [
+	// 	"Homepage",
+	// 	"Article",
+	// 	"Discussion",
+	// 	"Group",
+	// 	"Event",
+	// 	"Following",
+	// ];
+
 	const navItems = [
-		"Homepage",
-		"Article",
-		"Discussion",
-		"Group",
-		"Event",
-		"Following",
+		{ icon: <HomeOutlinedIcon />, text: "Homepage" },
+		{ icon: <ArticleOutlinedIcon />, text: "Article" },
+		{ icon: <ForumOutlinedIcon />, text: "Discussion" },
+		{ icon: <GroupsOutlinedIcon />, text: "Group" },
+		{ icon: <LocalActivityOutlinedIcon />, text: "Event" },
+		{ icon: <PersonAddAltOutlinedIcon />, text: "Following" },
+	];
+
+	const events = [
+		{
+			icon: <GroupsOutlinedIcon />,
+			title: "GatherTown Networking",
+			date: "2nd April 2022",
+			location: "GatherTown",
+		},
+		{
+			icon: <SportsEsportsOutlinedIcon />,
+			title: "IT Industry Sharing",
+			date: "4th April 2022",
+			location: "Zoom",
+		},
+		{
+			icon: <CoPresentOutlinedIcon />,
+			title: "Keynote by Rainny L.",
+			date: "7th April 2022",
+			location: "Google Meet",
+		},
+		{
+			icon: <AutoGraphOutlinedIcon />,
+			title: "Marketing Masterclass",
+			date: "8th April 2022",
+			location: "Raffles Place",
+		},
 	];
 
 	return (
@@ -48,55 +93,48 @@ const Homepage = () => {
 				sx={{
 					backgroundColor: "white",
 					boxShadow: "0px 4px 20px 2px rgba(236, 236, 236, 0.42)",
+					// alignItems: "center",
+					// display: "flex",
+					// justifyContent: "space-between",
+					// padding: 1,
 				}}
 			>
-				<Toolbar
-					sx={{
-						backgroundColor: "white",
-						boxShadow: "0px 4px 20px 2px rgba(236, 236, 236, 0.42)",
-						alignItems: "center",
+				<div
+					style={{
 						display: "flex",
+						flexDirection: "row",
 						justifyContent: "space-between",
-						padding: 1.5,
+						alignItems: "center",
+						paddingLeft: "72px",
+						paddingRight: "72px",
+						paddingTop: "20px",
+						paddingBottom: "20px",
 					}}
 				>
-					<img src={Logo} />
+					<img src={Logo} style={{ maxHeight: 30 }} />
 					<Typography
 						variant="h5"
 						fontWeight={800}
-						marginBottom={1}
 						color="primary"
-						align="center"
 						sx={{ left: "48%", position: "absolute" }}
 					>
 						INSPIRE
 					</Typography>
 					<Stack direction="row" alignItems="center" spacing={2.5}>
-						<Button variant="contained" sx={{ paddingY: 1, borderRadius: 2 }}>
-							<AddIcon />
+						<Button variant="contained" sx={{ backgroundColor: "#0B5286" }}>
+							<AddIcon fontSize="small" />
 							Post
 						</Button>
-						<FormControl sx={{ m: 1, width: "25ch" }} variant="outlined">
-							<InputLabel htmlFor="outlined-adornment-password">
-								Password
-							</InputLabel>
-							<OutlinedInput
-								id="outlined-adornment-password"
-								startAdornment={
-									<InputAdornment position="end">
-										<IconButton
-											aria-label="toggle password visibility"
-											edge="start"
-										>
-											<SearchIcon />
-										</IconButton>
-									</InputAdornment>
-								}
-							/>
-						</FormControl>
-						<Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
+						<TextField
+							id="outlined-search"
+							label="Search"
+							type="search"
+							// variant="filled"
+							size="small"
+						/>
+						<Avatar alt="user" src={UserAvatar} />
 					</Stack>
-				</Toolbar>
+				</div>
 			</AppBar>
 			<Grid container spacing={15} padding={7.5}>
 				<Grid item xs={3}>
@@ -111,8 +149,8 @@ const Homepage = () => {
 							paddingX={2}
 						>
 							<Stack direction="row" padding={2} alignItems="center">
-								<Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
-								<Typography variant="h5" marginLeft={2}>
+								<Avatar alt="user" src={UserAvatar} />
+								<Typography marginLeft={2} className={"Homepage__userName"}>
 									Karen Law
 								</Typography>
 							</Stack>
@@ -133,15 +171,40 @@ const Homepage = () => {
 											<>
 												<ListItem>
 													<ListItemButton>
-														<ListItemIcon>
-															<InboxIcon />
-														</ListItemIcon>
-														<ListItemText
-															primary={item}
-															primaryTypographyProps={{
-																color: "text.secondary",
-															}}
-														/>
+														{item.text === "Homepage" ? (
+															<div
+																style={{
+																	display: "flex",
+																	alignItems: "center",
+																}}
+															>
+																<ListItemIcon sx={{ color: "#0B5286" }}>
+																	{item.icon}
+																</ListItemIcon>
+																<ListItemText
+																	primary={item.text}
+																	primaryTypographyProps={{
+																		color: "#0B5286",
+																		fontWeight: "700",
+																	}}
+																/>{" "}
+															</div>
+														) : (
+															<div
+																style={{
+																	display: "flex",
+																	alignItems: "center",
+																}}
+															>
+																<ListItemIcon>{item.icon}</ListItemIcon>
+																<ListItemText
+																	primary={item.text}
+																	primaryTypographyProps={{
+																		color: "text.secondary",
+																	}}
+																/>
+															</div>
+														)}
 													</ListItemButton>
 												</ListItem>
 												<Divider light={true} sx={{ color: "#F3F3F7" }} />
@@ -153,9 +216,20 @@ const Homepage = () => {
 						</Box>
 
 						<Stack>
-							<Stack padding={2} direction="row" justifyContent="space-between">
-								<Typography>Event</Typography>
-								<Typography>View All</Typography>
+							<Stack
+								padding={2}
+								direction="row"
+								justifyContent="space-between"
+								alignItems="baseline"
+							>
+								<Typography
+									sx={{ color: "#FF8515", fontWeight: "700", fontSize: "16px" }}
+								>
+									Event
+								</Typography>
+								<Typography sx={{ color: "#6D6D6D", fontSize: "11px" }}>
+									View All
+								</Typography>
 							</Stack>
 							<Box
 								sx={{
@@ -167,32 +241,35 @@ const Homepage = () => {
 							>
 								<nav aria-label="main mailbox folders">
 									<List>
-										{navItems.map((item) => {
+										{events.map((event) => {
 											return (
 												<>
 													<ListItem
 														sx={{
 															paddingX: 0,
 															flexDirection: "column",
-															alignItems: "flex-end",
+															alignItems: "flex-start",
 														}}
 													>
 														<ListItemButton>
-															<ListItemIcon>
-																<InboxIcon />
+															<ListItemIcon sx={{ color: "#FF8515" }}>
+																{event.icon}
 															</ListItemIcon>
 															<ListItemText
-																primary={item}
+																primary={event.title}
 																primaryTypographyProps={{
-																	color: "text.secondary",
+																	color: "#0B5286",
+																	fontSize: "13px",
+																	fontWeight: 500,
 																}}
-																secondary="2nd April 2022 | GatherTown"
+																secondary={event.date + " | " + event.location}
+																secondaryTypographyProps={{ fontSize: "10px" }}
 															/>
 														</ListItemButton>
 														<Button
 															variant="contained"
 															size="small"
-															sx={{ padding: 0 }}
+															className="Homepage__eventRSVPButton"
 														>
 															RSVP
 														</Button>
@@ -212,7 +289,10 @@ const Homepage = () => {
 				</Grid>
 				<Grid item xs={3}>
 					<Stack alignItems="center">
-						<Typography variant="h6" marginBottom={1}>
+						<Typography
+							marginBottom={1}
+							sx={{ fontSize: "16px", color: "#AB70E7", fontWeight: 700 }}
+						>
 							Meet Some New Role Model!
 						</Typography>
 						<Box
@@ -221,29 +301,54 @@ const Homepage = () => {
 								borderRadius: 5,
 								boxShadow: "0px 4px 20px 2px rgba(236, 236, 236, 0.42)",
 								width: "100%",
+
+								border: "2px solid #DFBEFF ",
 							}}
 							paddingY={1}
 							paddingX={2}
 						>
 							<Stack padding={2} alignItems="center" spacing={2}>
 								<Avatar
-									alt="Remy Sharp"
-									src="/static/images/avatar/1.jpg"
+									alt="user"
+									src={RoleModelAvatar}
 									sx={{ width: 150, height: 150 }}
 								/>
-								<Stack spacing={1} alignItems="center">
+								<Stack spacing={0.8} alignItems="center">
 									<Typography
 										variant="h5"
-										marginLeft={2}
-										sx={{ fontWeight: 700 }}
+										sx={{ fontWeight: 700, color: "#0B5286" }}
 									>
 										Emily L.
 									</Typography>
-									<Typography marginLeft={2}>Data Analyst</Typography>
-									<Button variant="outlined">Role Model</Button>
+									<Typography sx={{ color: "#303030" }}>
+										Data Analyst
+									</Typography>
+									<Button
+										variant="outlined"
+										size="small"
+										sx={{
+											color: "#AB70E7",
+											borderColor: "#AB70E7",
+											borderRadius: 3,
+										}}
+									>
+										<Typography
+											sx={{ padding: 0.5, fontWeight: 500, fontSize: "13px" }}
+										>
+											Role Model
+										</Typography>
+									</Button>
 								</Stack>
-								<Typography color="text.secondary">
-									<Link>Know More</Link>
+								<Typography
+									sx={{
+										marginTop: "54px !important",
+										color: "#808080",
+										cursor: "pointer",
+										textDecoration: "underline",
+										fontSize: "13px",
+									}}
+								>
+									Know More
 								</Typography>
 							</Stack>
 						</Box>
