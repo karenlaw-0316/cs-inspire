@@ -33,7 +33,7 @@ import GroupsOutlinedIcon from "@mui/icons-material/GroupsOutlined";
 import LocalActivityOutlinedIcon from "@mui/icons-material/LocalActivityOutlined";
 import PersonAddAltOutlinedIcon from "@mui/icons-material/PersonAddAltOutlined";
 import AddIcon from "@mui/icons-material/Add";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Logo from "../../Assets/logo.png";
 import UserAvatar from "../../Assets/avatar.png";
 import UserAvatar2 from "../../Assets/UserAvatar2.png";
@@ -44,6 +44,7 @@ import SportsEsportsOutlinedIcon from "@mui/icons-material/SportsEsportsOutlined
 import CoPresentOutlinedIcon from "@mui/icons-material/CoPresentOutlined";
 import AutoGraphOutlinedIcon from "@mui/icons-material/AutoGraphOutlined";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import axios from "axios";
 
 import "./style.scss";
 
@@ -69,7 +70,7 @@ const Homepage = () => {
 	];
 	const [cm, setCM] = React.useState("");
 	const [comments, setComments] = React.useState(defaultComments);
-	console.log(comments);
+	const [recArt, setRecArt] = React.useState({ title: "", url: "" });
 
 	const navItems = [
 		{ icon: <HomeOutlinedIcon />, text: "Homepage" },
@@ -108,8 +109,6 @@ const Homepage = () => {
 	];
 
 	const onCommentPost = () => {
-		console.log("try");
-		console.log(cm);
 		let newComments = [...comments];
 		newComments.push({
 			avatar: UserAvatar,
@@ -118,8 +117,18 @@ const Homepage = () => {
 		});
 		setComments(newComments);
 		setCM("");
-		// console.log(comments);
 	};
+
+	const getRecommendedArticle = async () => {
+		const result = await axios.get("http://localhost:8000");
+		setRecArt(result.data);
+		console.log(result);
+		// return result;
+	};
+
+	useEffect(() => {
+		getRecommendedArticle();
+	}, []);
 
 	return (
 		<Box className="App" sx={{ backgroundColor: "#F9FBFC" }}>
@@ -129,10 +138,6 @@ const Homepage = () => {
 				sx={{
 					backgroundColor: "white",
 					boxShadow: "0px 4px 20px 2px rgba(236, 236, 236, 0.42)",
-					// alignItems: "center",
-					// display: "flex",
-					// justifyContent: "space-between",
-					// padding: 1,
 				}}
 			>
 				<div
@@ -165,7 +170,6 @@ const Homepage = () => {
 							id="outlined-search"
 							label="Search"
 							type="search"
-							// variant="filled"
 							size="small"
 						/>
 						<Avatar alt="user" src={UserAvatar} />
@@ -395,139 +399,11 @@ const Homepage = () => {
 												</Box>
 											);
 										})}
-										{/* <Box
-											sx={{
-												backgroundColor: "white",
-												padding: 3,
-												borderRadius: 2,
-											}}
-										>
-											<Stack direction="row" spacing={2}>
-												<Avatar
-													alt="user"
-													src={UserAvatar3}
-													sx={{ width: 40, height: 40 }}
-												/>
-												<Stack spacing={1}>
-													<Typography
-														sx={{
-															fontSize: "16px",
-															color: "#0B5286",
-															fontWeight: 700,
-														}}
-													>
-														Joyce N.
-													</Typography>
-
-													<Typography sx={{ fontSize: "14px" }}>
-														Lorem ipsum dolor sit amet, consectetur adipiscing
-														elit. Suspendisse malesuada lacus ex, sit amet
-														blandit leo lobortis eget.
-													</Typography>
-												</Stack>
-											</Stack>
-										</Box>
-										<Box
-											sx={{
-												backgroundColor: "white",
-												padding: 3,
-												borderRadius: 2,
-											}}
-										>
-											<Stack direction="row" spacing={2}>
-												<Avatar
-													alt="user"
-													src={UserAvatar4}
-													sx={{ width: 40, height: 40 }}
-												/>
-												<Stack spacing={1}>
-													<Typography
-														sx={{
-															fontSize: "16px",
-															color: "#0B5286",
-															fontWeight: 700,
-														}}
-													>
-														Anna A.
-													</Typography>
-
-													<Typography sx={{ fontSize: "14px" }}>
-														Lorem ipsum dolor sit amet, consectetur adipiscing
-														elit.
-													</Typography>
-												</Stack>
-											</Stack>
-										</Box>
-										<Box
-											sx={{
-												backgroundColor: "white",
-												padding: 3,
-												borderRadius: 2,
-											}}
-										>
-											<Stack direction="row" spacing={2}>
-												<Avatar
-													alt="user"
-													src={UserAvatar3}
-													sx={{ width: 40, height: 40 }}
-												/>
-												<Stack spacing={1}>
-													<Typography
-														sx={{
-															fontSize: "16px",
-															color: "#0B5286",
-															fontWeight: 700,
-														}}
-													>
-														Joyce N.
-													</Typography>
-
-													<Typography sx={{ fontSize: "14px" }}>
-														Lorem ipsum dolor sit amet, consectetur adipiscing
-														elit. Suspendisse malesuada lacus ex, sit amet
-														blandit leo lobortis eget.
-													</Typography>
-												</Stack>
-											</Stack>
-										</Box>
-										<Box
-											sx={{
-												backgroundColor: "white",
-												padding: 3,
-												borderRadius: 2,
-											}}
-										>
-											<Stack direction="row" spacing={2}>
-												<Avatar
-													alt="user"
-													src={UserAvatar3}
-													sx={{ width: 40, height: 40 }}
-												/>
-												<Stack spacing={1}>
-													<Typography
-														sx={{
-															fontSize: "16px",
-															color: "#0B5286",
-															fontWeight: 700,
-														}}
-													>
-														Joyce N.
-													</Typography>
-
-													<Typography sx={{ fontSize: "14px" }}>
-														Lorem ipsum dolor sit amet, consectetur adipiscing
-														elit. Suspendisse malesuada lacus ex, sit amet
-														blandit leo lobortis eget.
-													</Typography>
-												</Stack>
-											</Stack>
-										</Box> */}
 									</Stack>
 								</Box>
 								<Box
 									sx={{
 										backgroundColor: "white",
-										// height: "100px",
 										padding: "20px",
 										boxShadow: "0px -30px 20px -20px #0000000D",
 									}}
@@ -551,17 +427,20 @@ const Homepage = () => {
 										</Stack>
 										<TextField
 											id="outlined-multiline-static"
-											// label="Multiline"
 											multiline
 											rows={3}
 											value={cm}
 											onChange={(e) => setCM(e.target.value)}
-											// defaultValue="Default Value"
 										/>
 									</Stack>
 								</Box>
 							</AccordionDetails>
 						</Accordion>
+						<div>
+							<Typography>Recommended Article</Typography>
+							<Typography>{recArt ? recArt.title : ""}</Typography>
+							<a href={recArt.url}>Link to the article</a>
+						</div>
 					</div>
 				</Grid>
 				<Grid item xs={3}>
@@ -632,19 +511,6 @@ const Homepage = () => {
 					</Stack>
 				</Grid>
 			</Grid>
-			{/* <header className="App-header">
-				<p>
-					Edit <code>src/App.tsx</code> and save to reload.
-				</p>
-				<a
-					className="App-link"
-					href="https://reactjs.org"
-					target="_blank"
-					rel="noopener noreferrer"
-				>
-					Learn React
-				</a>
-			</header> */}
 		</Box>
 	);
 };
