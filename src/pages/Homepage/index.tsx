@@ -351,7 +351,7 @@ const Homepage = () => {
 											color: "#0B5286",
 										}}
 									>
-										What do you think about the recent COVID-19 policy?
+										Do you think data is BEAUTIFUL?
 									</Typography>
 								</div>
 							</AccordionSummary>
@@ -436,11 +436,45 @@ const Homepage = () => {
 								</Box>
 							</AccordionDetails>
 						</Accordion>
-						<div>
-							<Typography>Recommended Article</Typography>
-							<Typography>{recArt ? recArt.title : ""}</Typography>
-							<a href={recArt.url}>Link to the article</a>
-						</div>
+						<Box
+							sx={{
+								backgroundColor: "white",
+								padding: 3,
+								borderRadius: 2,
+								marginTop: "40px",
+								position: "relative",
+							}}
+						>
+							<Box
+								sx={{
+									backgroundColor: "#4D9C68",
+									padding: "12px",
+									borderRadius: 2,
+									top: "-20px",
+									right: "25px",
+									textAlign: "center",
+									position: "absolute",
+									maxWidth: "300px",
+								}}
+							>
+								<Typography
+									sx={{ fontSize: "14px", color: "white", fontWeight: 600 }}
+								>
+									Recommended Article
+								</Typography>
+							</Box>
+							<Link
+								href={recArt.url}
+								target="blank"
+								sx={{ textDecoration: "none" }}
+							>
+								<Typography
+									sx={{ marginTop: "15px", color: "#0B5286", fontWeight: 600 }}
+								>
+									{recArt ? recArt.title : ""}
+								</Typography>
+							</Link>
+						</Box>
 					</div>
 				</Grid>
 				<Grid item xs={3}>
