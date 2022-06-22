@@ -573,7 +573,7 @@ const Homepage = () => {
 																				src={require(`../../Assets/${cm.avatar}.png`)}
 																				sx={{ width: 40, height: 40 }}
 																			/>
-																			<Stack spacing={1}>
+																			<Stack spacing={1} sx={{ width: "100%" }}>
 																				<Typography
 																					sx={{
 																						fontSize: "16px",
@@ -587,6 +587,18 @@ const Homepage = () => {
 																				<Typography sx={{ fontSize: "14px" }}>
 																					{cm.content}
 																				</Typography>
+																				<Button
+																					sx={{
+																						alignSelf: "flex-end",
+																						marginBottom: "-15px !important",
+																						marginTop: "0px !important",
+																					}}
+																					onClick={() =>
+																						setCM("@" + cm.userName + " ")
+																					}
+																				>
+																					Reply
+																				</Button>
 																			</Stack>
 																		</Stack>
 																	</Box>
